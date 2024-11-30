@@ -1,0 +1,12 @@
+1 Roman
+2 Vasyl
+3 Valentin
+4 Denys
+5 Vlad
+6 Robert
+7 Yaryna
+8 Viktoria
+9 Lilya
+10 Sophia
+11 Marya
+12 Daryna
