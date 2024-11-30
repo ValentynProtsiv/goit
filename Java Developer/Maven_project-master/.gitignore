@@ -1,0 +1,17 @@
+target/
+log/
+
+.classpatch
+.project
+.settings/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store

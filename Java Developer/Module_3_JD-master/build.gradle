@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+checkstyle {
+    toolVersion = "8.44" // Версія Checkstyle
+    configFile = file("$rootDir/config/checkstyle/checkstyle.xml") // Шлях до файлу конфігурації Checkstyle
+    ignoreFailures = false // Зупиняти збірку в разі виявлення помилок Checkstyle
+    showViolations = true
+}
+
+// Додати нове завдання для лінтування всього проекту
+task lint(type: Checkstyle) {
+    description 'Runs Checkstyle for the entire project'
+    group 'verification'
+    dependsOn 'check'
+}
+
+// Забезпечити виконання завдання лінтування перед збіркою
+tasks.named('assemble').configure {
+    dependsOn 'lint'
+}
+
+// Налаштувати завдання для лінтування тестового коду
+task lintTest(type: Checkstyle) {
+    description 'Runs Checkstyle for test sources'
+    group 'verification'
+    dependsOn 'checkstyleTest'
+}
+
+// Забезпечити виконання завдання лінтування тестового коду перед тестуванням
+tasks.named('test').configure {
+    dependsOn 'lintTest'
+}
+
+test {
+    useJUnitPlatform()
+}
